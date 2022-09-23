@@ -7,9 +7,9 @@
   text-decoration: none;
   outline: none; border:none;
   text-transform: capitalize;
-  transition: all .2s linear;
+  transition: all .2s linear;// all buttons/links pressed/hovered cause smooth transition
 }
-
+// assign names to colors for efficiency
 $blue : #0984e3;
 $black : #333;
 $white : #fff;
@@ -19,6 +19,7 @@ $light-bg : #eee;
 $border : .2rem solid $black;
 $box-shadow : 0 .5rem 1rem rgba(0,0,0,.2);
 
+// we create a parameterized style function which can be called inside reference blocks using "include" keyword. 
 @mixin grid($val) {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax($val, 1fr));
@@ -28,16 +29,18 @@ $box-shadow : 0 .5rem 1rem rgba(0,0,0,.2);
 html{
   overflow-x: hidden;
   font-size: 62.5%;
+// & references the parent selector of a declaration block allowing the selector to be referenced from within itself
+// The: :before selector inserts something before the content of each selected element(s).
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar{//the full scrollbar area
     width: 1rem;
   }
 
-  &::-webkit-scrollbar-track{
+  &::-webkit-scrollbar-track{//the background part of the scrollbar area
     background: $light-bg;
   }
 
-  &::-webkit-scrollbar-thumb{
+  &::-webkit-scrollbar-thumb{// the part of scrollbar area which shows which part of the page we are in
     background: $blue;
     border-radius: 5rem;
   }
@@ -83,7 +86,7 @@ section{
     opacity: 0;
   }
 }
-
+// This is the advantage that Sass has over CSS that it prevents its users from repeating redundant selectors making the code clear and more readable.
 .header{
   position: sticky;
   top:0; left:0; right:0;
@@ -155,11 +158,11 @@ section{
   height: 100%;
   width: 30rem;
   background: $white;
-  z-index: 10000;
+  z-index: 10000; //it'll be in front of the page
 
   &.active{
     left:0;
-    box-shadow: 0 0 0 100vw rgba(0,0,0,.7);
+    box-shadow: 0 0 0 100vw rgba(0,0,0,.7);//transparent black layer formed by it
   }
 
   #close-side-bar{
@@ -399,7 +402,8 @@ section{
   }
 
   .content{
-    flex:1 1 42rem;
+    // flex:1 1 42rem;
+    
     padding:3rem;
     background: $white;
 
@@ -663,7 +667,7 @@ section{
       height: 30rem;
 
       &:hover img{
-        transform: scale(1.1);
+        transform: scale(1.1); // on hover image size increases
       }
 
       img{
@@ -675,7 +679,7 @@ section{
       .content{
         position: absolute;
         top:50%; left:5%;
-        transform: translateY(-50%);
+        transform: translateY(-50%);// rotated text
 
         span{
           font-size: 1.7rem;
@@ -1070,6 +1074,7 @@ section{
   img{
     height: 4rem;
     filter: drop-shadow(0 0 .1rem $black);
+    // drop-shadow you can generate shadow around irregular shapes or images, whereas box-shadows generates a rectangular shadow
   }
 }
 
@@ -1082,7 +1087,7 @@ section{
 
 
 
-// media queries 
+// media queries - desktop first approach
 
 @media (max-width:1200px){
 
@@ -1146,8 +1151,11 @@ section{
       border-radius: 0;
       box-shadow: $box-shadow;
       height: 6rem;
-      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 
+      // https: //www.cssportal.com/css-clip-path-generator/
+
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      // The clip-path property allows you to make complex shapes in CSS by clipping an element to a basic shape (circle, ellipse, polygon, or inset),or to an SVG source. CSS Animations and transitions are possible with two or more clip-path shapes with the same number of points.
       &.active{
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
       }
